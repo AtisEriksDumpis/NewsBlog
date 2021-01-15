@@ -1,0 +1,94 @@
+﻿@model Models.Post
+
+
+    @Html.AntiForgeryToken()
+    <hr />
+    <div class="row" style="padding-left:100px">
+        <div class="leftcolumn">
+            <div class="card">
+                <h2 style=" padding: 20px; font-size: 40px; text-align: left; background: white; width:600px;">
+                    @Html.ActionLink(Model.Title, "PostView", "Post", new { PostID = Model.ID }, null)
+                </h2>
+                <p  style=" background-color: white; padding: 10px; margin-top: 20px; width:1000px;">@Html.DisplayFor(modelItem => Model.Text)</p>
+                <p>Curent raiting: @Html.DisplayFor(modelItem => Model.Rating)</p>
+
+                @if (ViewBag.id != 0)
+                {
+                    <div style="display: block;">
+                        <form method="post" action="/Post/LikePost">
+                            <div class="col-md-1">
+                                <button class="btn btn-primary" name="PostID" value=@Model.ID>Like</button>
+                            </div>
+                        </form>
+                        <form method="post" action="/Post/DislikePost">
+                            <div class="col-md-1">
+                                <button class="btn btn-primary" name="PostID" value=@Model.ID>Dislike</button>
+                            </div>
+                        </form>
+                    </div>
+                }
+                <hr />
+                <div style="display:block">
+                    @if (ViewBag.id == Model.AuthID)
+                    {
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                            Edit post
+                        </button>
+
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                            
+                                    <h2>Delete post</h2>
+                                    <form class="form-horizontal" method="post" action="/Post/Deletepost">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="singlebutton"></label>
+                                                <div class="col-md-4">
+                                                    <button class="btn btn-danger" name="id" value=@Model.ID>Delete post</button>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                    <hr />
+                                    <h2>Change posts data</h2>
+                                    <form class="form-horizontal" method="post" action="/Post/Updatepost">
+                                        <fieldset>
+                                            <label class="control-label" for="singlebutton"></label>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="textinput">Title change</label>
+                                                <div class="col-md-4">
+                                                    <input class="form-control input-lg" type="text" name="nTitle" value="@Model.Title" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="textinput">Text change</label>
+                                                <div class="col-md-4">
+                                                    <input class="form-control input-lg" type="text" name="nText" value="@Model.Text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="textinput"></label>
+                                                <div class="col-md-4">
+                                                    <button class="btn btn-danger" name="id" value=@Model.ID>Update post</button>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+

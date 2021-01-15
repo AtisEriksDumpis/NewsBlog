@@ -32,11 +32,25 @@ namespace DBLibrary.DataAccess
                 return cnn.Execute(sql, data);
             }
         }
-        public static T[] LodeUser<T>(string sql, T data)
+        public static T[] LodeUser<T>(string sql)
+        {
+            using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
+            {
+                return cnn.Query<T>(sql).ToArray();
+            }
+        }
+        public static T[] getdata<T>(string sql, T data)
         {
             using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
             {
                 return cnn.Query<T>(sql, data).ToArray();
+            }
+        }
+        public static List<T> returnlist<T>(string sql, T data)
+        {
+            using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
+            {
+                return cnn.Query<T>(sql, data).ToList();
             }
         }
     }

@@ -1,0 +1,9 @@
+﻿@model Models.ViewSpecificModels.SerchModel
+@Html.Partial("_MenuBar")
+<hr />
+<h3>Serch results</h3>
+@foreach (var item in Model.posts)
+{
+    @Html.Partial("_Post", item, new ViewDataDictionary { { "id", Model.CurentUseerId } })
+}
+

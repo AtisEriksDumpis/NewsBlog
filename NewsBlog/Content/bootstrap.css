@@ -34,6 +34,33 @@ video {
   display: inline-block;
   vertical-align: baseline;
 }
+
+.box3 {
+    position: relative;
+    background: #c2b6fb;
+    border-radius: .4em;
+    height: 100px;
+    padding: 10px
+}
+
+
+/* speech bubble 13 */
+
+.sb1:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 44px solid transparent;
+    border-right-color: #c2b6fb;
+    border-left: 0;
+    border-top: 0;
+    margin-top: -22px;
+    margin-left: -44px;
+}
+
 audio:not([controls]) {
   display: none;
   height: 0;

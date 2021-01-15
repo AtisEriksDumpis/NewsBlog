@@ -1,0 +1,17 @@
+﻿@model Models.ViewSpecificModels.PostsModel
+
+@Html.Partial("_MenuBar", new ViewDataDictionary { { "id", Model.CurentUseerId },{ "Username", Model.userName} })
+
+<h2>Posts</h2>
+@if (Model.postAction)
+{
+    <form class="form-horizontal" method="post" action="/Post/MakePost">
+        <button class="btn btn-primary">Make new post</button>
+    </form>
+}
+
+@foreach (var item in Model.posts)
+{
+    @Html.Partial("_Post", item, new ViewDataDictionary { { "id", Model.CurentUseerId },{ "make",Model.postAction} })
+}
+

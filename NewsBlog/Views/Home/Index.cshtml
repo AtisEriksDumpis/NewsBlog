@@ -1,92 +1,46 @@
-﻿@model IEnumerable<NewsBlog.Models.Posts>
+﻿@model Models.ViewSpecificModels.HomeModel
 
-@{
-    ViewBag.Title = "Blog body";
-}
+@Html.Partial("_MenuBar")
 
-<h2>Posts</h2>
-@if (ViewBag.canmake)
-{
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            @Html.ActionLink("MakePost", "MakePost", "Home")
-        </div>
+<hr />
+<hr />
+<form method="post" action="/Post/Serchresults">
+    <div class="col-md-1">
+        <input type="text" name="serchText" />
+        <button class="btn btn-primary" name="PostID">Search</button>
     </div>
-}
+</form>
+<hr />
+<hr />
+<hr />
+<hr />
 
-@*<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Text)
-        </th>
-        <th>
-            Up woutes for post
-        </th>
-        <th>
-            Down woutes for post
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.author)
-        </th>
-        <th></th>
-    </tr>*@
+<h3>Latest 5 posts</h3>
+<div style="border:1px solid black">
+    @foreach (Models.Post item in Model.Latest5)
+    {
 
-@*@foreach (var item in Model)
+        @Html.Partial("_Post", item, new ViewDataDictionary { { "id", Session["ID"] } })
+    }
+    </div>
+    <hr />
+    <hr />
+    <h3>Moust liked 3 posts</h3>
+    <div style="border:1px solid black">
+        @foreach (Models.Post item in Model.TopLiked3)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Text)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.upWoute)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.downWoute)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.author)
-                </td>
 
-            </tr>
+            @Html.Partial("_Post", item, new ViewDataDictionary { { "id", Session["ID"] } })
         }
-
-    </table>*@
-@foreach (var item in Model)
-{
-
-    <div class="row">
-        <div class="leftcolumn">
-            <div class="card">
-                <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
-                <h5>Title description, Dec 7, 2017</h5>
-                <div class="fakeimg" style="height:200px;">Image</div>
-                <p>@Html.DisplayFor(modelItem => item.Text)</p>
-            </div>
-            <div class="card">
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Sep 2, 2017</h5>
-                <div class="fakeimg" style="height:200px;">Image</div>
-                <p>Some text..</p>
-            </div>
         </div>
-    </div>
+        <hr />
+        <hr />
+        <h3>Posts with latest comments</h3>
+        <div style="border:1px solid black">
+            @foreach (Models.Post item in Model.Comented3)
+            {
 
+                @Html.Partial("_Post", item, new ViewDataDictionary { { "id", Session["ID"] } })
 
-        <h2>  @Html.DisplayFor(modelItem => item.Title)</h2>
-
-
-        <p>    @Html.DisplayFor(modelItem => item.Text)</p>
-        <div>
-            @Html.DisplayFor(modelItem => item.upWoute) @Html.DisplayFor(modelItem => item.downWoute)
+            }
         </div>
-
-        @Html.DisplayFor(modelItem => item.author)
-
-        }
-

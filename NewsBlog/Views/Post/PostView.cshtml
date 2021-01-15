@@ -1,0 +1,76 @@
+﻿@model Models.ViewSpecificModels.PostModel
+
+@Html.Partial("_MenuBar", new ViewDataDictionary { { "id", Model.CurentUseerId } })
+
+<div class="card">
+    <h2 style=" padding: 30px; font-size: 40px; text-align: center; background: white;">@Model.curentPost.Title</h2>
+    <p style=" background-color: white; padding: 20px; margin-top: 20px;">@Model.curentPost.Text</p>
+</div>
+
+@if (Model.CurentUseerId != 0 && Model.comentAction)
+{
+    <form method="post" action="/Coment/AddComent">
+        <textarea style="display: block; width:100%; margin:0px 0px 0px 0px;" class="form-control input-lg" name="comment" placeholder="Enter coment here..."></textarea>
+        <button style="display: block;" class="btn btn-primary" name="PostID" value=@Model.curentPost.ID>Add coment</button>
+    </form>
+}
+
+@foreach (var item in Model.comentList)
+{
+    if (!item.Hiden)
+    {
+        <div class="row">
+            <h1 class="col-lg-2"><u>@Html.DisplayFor(modelItem => item.Author)</u></h1>
+            <p class="col-lg-8 box3 sb1">@Html.DisplayFor(modelItem => item.Coment)</p>
+        </div>
+        <div style="float:right">
+            <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#exampleModal">
+                Report
+            </button>
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h2>Report mesage</h2>
+                    <form class="form-horizontal" method="post" action="/Coment/Report">
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Please enter the couse of the report</label>
+                                <div class="col-md-4">
+                                    <input id="textinput" name="mesage" type="text" class="form-control input-md" placeholder="Write the complaint" required="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="singlebutton"></label>
+                                <div class="col-md-4">
+                                    <button class="btn btn-info" name="Id" value=@item.Id>Submit report</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    }
+
+    <div style="display:block">
+        @if (Model.CurentUseerId == item.AuthID)
+        {
+            <form class="form-horizontal" method="post" action="/Coment/Deletecoment">
+                <button class="btn btn-danger" name="id" value=@item.Id>Delete coment</button>
+            </form>
+
+            <form class="form-horizontal" method="post" action="/Coment/Updatecoment">
+                <label class="control-label" for="singlebutton"></label>
+                <input class="form-control input-lg" type="text" name="nText" value="@item.Coment" />
+                <input type="hidden" name="curId" value=@item.Id>
+                <button class="btn btn-danger" name="id" value=@item.PostID>Update Coment</button>
+            </form>
+        }
+    </div>
+    <hr />
+}
+
+

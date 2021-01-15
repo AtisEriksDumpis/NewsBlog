@@ -1,0 +1,70 @@
+﻿@model Models.ViewSpecificModels.AdminModel
+
+@Html.Partial("_MenuBar", new ViewDataDictionary { { "id", (int)Session["ID"] } })
+
+<h2>AdminView</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Username
+        </th>
+        <th>
+            Pasword
+        </th>
+        <th>
+            Allow  posting
+        </th>
+        <th>
+            Allow comenting
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (Models.User item in Model.Users)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pasword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.allowPost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.allowComent)
+            </td>
+
+            <td>
+                @Html.ActionLink("Delete", "DeleteUser", "Admin", new { Id = item.ID }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Allow creation", "postMaking", "Admin", new { Id = item.ID, canMakePosts = item.allowPost }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Allow comenting", "comentMaking", "Admin", new { Id = item.ID, canMakeComents = item.allowComent }, null)
+            </td>
+        </tr>
+    }
+
+
+</table>
+<h3>reported coments</h3>
+@foreach (Models.Comments item in Model.reportedComments)
+{<h2> @Html.DisplayFor(modelItem => item.Author) </h2>
+ <p>
+     @Html.DisplayFor(modelItem => item.Comment)
+ </p>
+   
+   
+
+    @Html.ActionLink("hide", "Hide", "Coment", new { Id = item.Id }, null)
+    
+    @Html.ActionLink("Restore", "Restore", "Coment", new { Id = item.Id }, null)
+
+}

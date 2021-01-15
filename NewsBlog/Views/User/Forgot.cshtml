@@ -1,0 +1,65 @@
+﻿@model Models.User
+@if (Model.ID == 0)
+{
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <h2>Input safety information</h2>
+            <hr />
+            <form method="post" action="/User/Forgot">
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Input user name</label>
+                        <div class="col-md-4">
+                            <input type="text" name="uName"  class="form-control input-md  text-danger"/>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Name of the first pet</label>
+                        <div class="col-md-4">
+                            <input type="text" name="sName" class="form-control input-md  text-danger" />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput"></label>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary">Check data</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+}
+
+@if (Model.ID != 0)
+{
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <h2>Reset pasword</h2>
+            <hr />
+            <form method="post" action="/User/RegisterNewPasword">
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Input new pasword atleast 10 charecters</label>
+                        <div class="col-md-4">
+                            <input type="text" name="newPas" class="form-control input-md  text-danger" />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput"></label>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary" name="UserID" value=@Model.ID>Renew pasword</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            </div>
+        </div>
+            }
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
